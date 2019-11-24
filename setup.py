@@ -25,5 +25,5 @@ setup(
     install_requires=install_requires,
     setup_requires=['numpy>=1.10', 'scipy>=0.17'],
     dependency_links=dependency_links,
-    author_email='peimengsui@@gmail.com'
+    author_email='peimengsui@gmail.com'
 )
