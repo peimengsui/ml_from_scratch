@@ -26,3 +26,17 @@ def train_test_split(X, y, test_size=0.5, shuffle=True, seed=None):
     y_train, y_test = y[:split_i], y[split_i:]
 
     return X_train, X_test, y_train, y_test
+
+
+def accuracy_score(y_true, y_pred):
+    """ Compare y_true to y_pred and return the accuracy """
+    accuracy = np.sum(y_true == y_pred, axis=0) / len(y_true)
+    return accuracy
+
+
+def make_diagonal(x):
+    """ Converts a vector into an diagonal matrix """
+    m = np.zeros((len(x), len(x)))
+    for i in range(len(m[0])):
+        m[i, i] = x[i]
+    return m
