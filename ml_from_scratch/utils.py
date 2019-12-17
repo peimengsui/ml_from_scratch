@@ -95,3 +95,33 @@ def calculate_correlation_matrix(X, Y=None):
     correlation_matrix = np.divide(covariance, std_dev_X.dot(std_dev_y.T))
 
     return np.array(correlation_matrix, dtype=float)
+
+
+def calculate_entropy(y):
+    value, counts = np.unique(y, return_counts=True)
+    norm_counts = counts / counts.sum()
+    return - (norm_counts * np.log(norm_counts)).sum()
+
+
+def get_random_subsets(X, y, n_subsets, replacements=True):
+    """ Return random subsets (with replacements) of the data """
+    n_samples = np.shape(X)[0]
+    # Concatenate x and y and do a random shuffle
+    X_y = np.concatenate((X, y.reshape((1, len(y))).T), axis=1)
+    np.random.shuffle(X_y)
+    subsets = []
+
+    # Uses 50% of training samples without replacements
+    subsample_size = int(n_samples // 2)
+    if replacements:
+        subsample_size = n_samples      # 100% with replacements
+
+    for _ in range(n_subsets):
+        idx = np.random.choice(
+            range(n_samples),
+            size=np.shape(range(subsample_size)),
+            replace=replacements)
+        X = X_y[idx][:, :-1]
+        y = X_y[idx][:, -1]
+        subsets.append([X, y])
+    return subsets
